@@ -1,6 +1,5 @@
 {
-	"name": "friday-app",
-	"description": "React Native Boilerplate, TypeScript with React Native Navigation",
+	"name": "iws-isobarfm",
 	"keywords": [
 		"react native",
 		"typescript",
@@ -9,18 +8,13 @@
 	],
 	"version": "v0.2.2",
 	"author": {
-		"name": "Amit Mangal",
-		"email": "mangalamitash@gmail.com",
-		"url": "https://github.com/AmitM30"
+		"name": "Matheus Rufca",
+		"email": "matheus.rufca@gmail.com",
 	},
 	"private": false,
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/AmitM30/react-native-typescript-boilerplate"
-	},
-	"bugs": {
-		"url": "https://github.com/AmitM30/react-native-typescript-boilerplate/issues",
-		"email": "mangalamitash@gmail.com"
+		"url": "git://github.com/matheusrufca/iws-isobarfm"
 	},
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
