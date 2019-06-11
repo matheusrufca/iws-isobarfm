@@ -1,11 +1,11 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { createLogger } from 'redux-logger';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import { detailEpics } from './detail/detail.epic';
 import { detailReducer } from './detail/detail.reducer';
 import { overviewEpics } from './overview/overview.epic';
 import { overviewReducer } from './overview/overview.reducer';
 import { rootStateActions } from './root-state.actions';
-import { createLogger } from 'redux-logger';
 
 const epicMiddlware = createEpicMiddleware({
 	dependencies: {}
@@ -34,6 +34,7 @@ export function configureStore() {
 		combineEpics(
 			overviewEpics.appInit,
 			overviewEpics.updateArtists,
+			overviewEpics.navigateToDetail,
 			detailEpics.appInit,
 			detailEpics.loadDetail
 		)

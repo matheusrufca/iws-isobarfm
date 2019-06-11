@@ -1,18 +1,5 @@
 import { AnyAction } from 'deox';
-import {
-	Body,
-	Container,
-	Content,
-	Header,
-	Icon,
-	Input,
-	Item,
-	Left,
-	List,
-	ListItem,
-	Text,
-	Thumbnail
-} from 'native-base';
+import { Body, Container, Content, Header, Icon, Input, Item, Left, List, ListItem, Text, Thumbnail } from 'native-base';
 import * as React from 'react';
 import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 import { connect } from 'react-redux';
@@ -22,14 +9,11 @@ import { SortingTypes } from '../../../core/models/sorting-types.enum';
 import { Nullable } from '../../../core/models/types';
 import { detailActions } from '../../../store/detail/detail.actions';
 import { overviewActions } from '../../../store/overview/overview.actions';
-import {
-	selectArtists,
-	selectError,
-	selectIsLoading
-} from '../../../store/overview/overview.selectors';
+import { selectArtists, selectError, selectIsLoading } from '../../../store/overview/overview.selectors';
 import { RootState } from '../../../store/root-state';
 
 interface Props {
+	componentId: string;
 	clearQuery: any;
 	data: Artist[];
 	error: Nullable<ErrorInfo>;
@@ -92,7 +76,8 @@ class Overview extends React.PureComponent<Props, State> {
 				<Item>
 					<Icon name="search" />
 					{!!this.state.query && (
-						<Icon name="close" onPress={this.props.clearQuery} />
+						<Icon name="close-circle" />
+						// <Icon name="close" onPress={this.props.clearQuery} />
 					)}
 					<Input
 						placeholder="Search"
@@ -111,7 +96,9 @@ class Overview extends React.PureComponent<Props, State> {
 				avatar
 				key={item.id}
 				button={true}
-				onPress={() => this.props.navigateToDetail(item.id)}
+				onPress={() =>
+					this.props.navigateToDetail(item.id, this.props.componentId)
+				}
 			>
 				<Left>
 					<Thumbnail source={{ uri: item.image }} />
@@ -129,14 +116,15 @@ class Overview extends React.PureComponent<Props, State> {
 		if (this.state.sortType === SortingTypes.Alphabetically) {
 			icon = (
 				<Icon
-					name="sort-alpha-asc"
+					name="sort-alpha-up"
 					onPress={() => this.toggleSort(this.state.sortType)}
 				/>
 			);
 		} else {
 			icon = (
 				<Icon
-					name="sort-numeric-asc"
+					name="sort-numeric-down"
+					type="FontAwesome5"
 					onPress={() => this.toggleSort(this.state.sortType)}
 				/>
 			);
@@ -161,8 +149,13 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: React.Dispatch<AnyAction>) => ({
-	navigateToDetail(artistId: string) {
-		dispatch(detailActions.loadDetail(artistId));
+	navigateToDetail(artistId: string, componentId: string) {
+		dispatch(
+			detailActions.loadDetail({
+				artistId,
+				componentId
+			})
+		);
 	},
 	handleInputChange(event: NativeSyntheticEvent<TextInputChangeEventData>) {
 		dispatch(overviewActions.filtertList(event.nativeEvent.text));
@@ -179,4 +172,3 @@ export const overviewComponent = connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(Overview);
-

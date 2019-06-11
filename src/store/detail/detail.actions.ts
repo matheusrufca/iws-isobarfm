@@ -5,8 +5,10 @@ import { Artist } from '../../core/models/artist';
 
 const loadDetail = createActionCreator(
 	'[Detail] LOAD_DETAIL',
-	(resolve) => (payload: string, meta?: object) =>
-		resolve(payload, meta ? meta : {})
+	(resolve) => (
+		payload: { componentId: string; artistId: string },
+		meta?: object
+	) => resolve(payload, meta ? meta : {})
 );
 
 const fetchData = createActionCreator(

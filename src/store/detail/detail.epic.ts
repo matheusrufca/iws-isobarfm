@@ -31,22 +31,6 @@ const appInit = (
 		})
 	);
 
-const navigateToView = (
-	action$: Observable<DetailsActions>,
-	state$: Observable<RootState>
-) =>
-	action$.pipe(
-		ofType(detailActions.loadDetail),
-		tap((action) => {
-			Navigation.push(Screens.Detail, {
-				component: {
-					name: Screens.Detail
-				}
-			});
-		}),
-		map((action) => detailActions.fetchData(action.payload))
-	);
-
 const loadDetail = (
 	action$: Observable<DetailsActions>,
 	state$: Observable<RootState>
@@ -93,8 +77,7 @@ const loadDetail = (
 
 export const detailEpics = Object.freeze({
 	appInit,
-	loadDetail,
-	navigateToView
+	loadDetail
 });
 
 function getArtist(artistId: string): Observable<Artist> {
