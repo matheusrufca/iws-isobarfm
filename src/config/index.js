@@ -1,26 +1,27 @@
-const base = '/api/v1';
-const domain = 'somecompany.com';
+const apiDomain = 'https://iws-recruiting-bands.herokuapp.com';
+const apiBaseURL = `${apiDomain}/api`;
+
 const Defaults = {
-  appName: 'FridayApp',
-  domain,
-  defaultLocale: {
-    lang: 'en'
-  },
-  app: {
-    platforms: ['ios', 'android']
-  },
-  apis: {
-    baseUrl: `https://api.${domain}`,
-    public: {
-      base: `${base}`,
-      backend: `${base}`
-    },
-    user: {
-      base: `${base}`,
-      login: `${base}/login`,
-      logout: `${base}/logout`
-    }
-  }
+	appName: 'isobarfm',
+	domain: apiDomain,
+	defaultLocale: {
+		lang: 'en'
+	},
+	app: {
+		platforms: ['ios', 'android']
+	},
+	apis: {
+		baseUrl: apiBaseURL,
+		public: {
+			base: apiBaseURL,
+			backend: apiBaseURL
+		},
+		bands: {
+      base: `${apiBaseURL}`,      
+			bands: `${apiBaseURL}/bands`,
+			albums: `${apiBaseURL}/albums`
+		}
+	}
 };
 
 export default Defaults;
