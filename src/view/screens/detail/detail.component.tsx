@@ -1,28 +1,26 @@
 import { AnyAction } from 'deox';
 import {
 	Button,
-	Col,
 	Container,
-	Grid,
 	Header,
 	Icon,
 	Item,
+	Left,
 	Text,
-	Thumbnail,
-	Left
+	Thumbnail
 } from 'native-base';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Album } from '../../../core/models/album';
 import { Artist } from '../../../core/models/artist';
 import { Screens } from '../../../core/models/screen.enum';
+import { Nullable } from '../../../core/models/types';
 import { registerRootComponent } from '../../../navigators/navigation';
 import {
 	selecAlbumsByArtsts as selecAlbumsByArtst,
 	selectArtistsById
 } from '../../../store/detail/detail.selectos';
 import { RootState } from '../../../store/root-state';
-import { Nullable } from '../../../core/models/types';
 
 interface Props {
 	artistId: string;
@@ -49,7 +47,9 @@ class Detail extends React.PureComponent<Props, State> {
 		return (
 			<Container>
 				{this.renderHeader()}
+				{this.renderTitle()}
 				{this.renderDescription()}
+				{this.renderAlbumsList()}
 			</Container>
 		);
 	}
@@ -62,11 +62,16 @@ class Detail extends React.PureComponent<Props, State> {
 						<Button iconLeft onPress={this.backHome}>
 							<Icon name="arrow-back" />
 							<Text>Back</Text>
-						</Button>{' '}
+						</Button>
 					</Item>
 				</Left>
 			</Header>
 		);
+	}
+
+	private renderTitle() {
+		const title = this.state.artist ? this.state.artist.name : '';
+		return <Text>{title}</Text>;
 	}
 
 	private renderDescription() {
@@ -76,13 +81,11 @@ class Detail extends React.PureComponent<Props, State> {
 
 	private renderAlbumsList() {
 		return (
-			<Grid>
+			<Container>
 				{this.state.albums.map((item) => (
-					<Col>
-						<Thumbnail square source={{ uri: item.image }} />
-					</Col>
+					<Thumbnail square source={{ uri: item.image }} />
 				))}
-			</Grid>
+			</Container>
 		);
 	}
 
